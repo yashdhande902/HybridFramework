@@ -4,41 +4,47 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.Base.BaseClass;
+import com.aventstack.extentreports.Status;
 import com.utility.DriverUtils;
 
-public class MyListner implements ITestListener {
+public class MyListner extends BaseClass implements ITestListener {
 
-	public void onFinish(ITestContext arg0) {
-		
+	public void onFinish(ITestContext result) {
+		log.info("test suit is successfully executed");
+		report.flush();
 	}
 
-	public void onStart(ITestContext arg0) {
-		
+	public void onStart(ITestContext result) {
+		log.info("test suit ready for execution");
+	
+
 	}
 
-	public void onTestFailedButWithinSuccessPercentage(ITestResult arg0) {
-		
+	public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
+
 	}
 
 	public void onTestFailure(ITestResult result) {
-	
-		try {
-			DriverUtils.getScreenshot(result.getName());
-		} catch (Exception e) {
- 			e.printStackTrace();
-		}
-		
+		String path = DriverUtils.getScreenshot(result.getName());
+		test.log(Status.FAIL, " Testcase failed with name " + result.getName());
+		test.addScreenCaptureFromPath(path);
+
 	}
 
-	public void onTestSkipped(ITestResult arg0) {
-		
+	public void onTestSkipped(ITestResult result) {
+		test.log(Status.SKIP, " Testcase skiiped with name " + result.getName());
+
 	}
 
-	public void onTestStart(ITestResult arg0) {
-		
+	public void onTestStart(ITestResult result) {
+
+		test = report.createTest(result.getName());
+
 	}
 
-	public void onTestSuccess(ITestResult arg0) {
+	public void onTestSuccess(ITestResult result) {
+		test.log(Status.PASS, "Testcase passed with name " + result.getName());
 		
 	}
 

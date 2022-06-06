@@ -2,18 +2,34 @@ package com.Base;
 
 import java.util.concurrent.TimeUnit;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import com.utility.PropertiesUtils;
 
 public class BaseClass {
 
 	public static WebDriver driver=null;
+public static Logger log=Logger.getLogger(BaseClass.class);
+
+public static ExtentReports report=null;
+public static ExtentTest test=null;
+public static ExtentSparkReporter spark=null;
+
+
+
 public static void initilization() throws Exception{
 	
-	String browser=PropertiesUtils.readProperty("browser");
+	System.out.println("reading  a browser from config file ");
+	log.info("reading  a browser from config file ");
+	String browser=PropertiesUtils.readProperty("browser"); 
+	log.info("browser name found in config file as : "+browser);
+	
 	
 	if(browser.equals("chrome")){
 		
@@ -34,4 +50,12 @@ public static void initilization() throws Exception{
 	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	
 }
+public static void reportInit(){
+	
+	report=new ExtentReports();
+	spark= new ExtentSparkReporter(System.getProperty("user.dir")+"/targe/ExtentReport.html");
+report.attachReporter(spark);
+
+}
+
 }

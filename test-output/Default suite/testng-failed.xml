@@ -5,7 +5,7 @@
     <classes>
       <class name="com.Test.LoginTest">
         <methods>
-          <include name="logintest"/>
+          <include name="skipTest"/>
           <include name="setUp"/>
         </methods>
       </class> <!-- com.Test.LoginTest -->
