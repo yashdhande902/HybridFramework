@@ -26,15 +26,16 @@ public class MyListner extends BaseClass implements ITestListener {
 	}
 
 	public void onTestFailure(ITestResult result) {
-		String path = DriverUtils.getScreenshot(result.getName());
+		String path=DriverUtils.getScreenshot(result.getName());
 		test.log(Status.FAIL, " Testcase failed with name " + result.getName());
 		test.addScreenCaptureFromPath(path);
 
 	}
 
 	public void onTestSkipped(ITestResult result) {
+		String path=DriverUtils.getScreenshot(result.getName());
 		test.log(Status.SKIP, " Testcase skiiped with name " + result.getName());
-
+		test.addScreenCaptureFromPath(path);
 	}
 
 	public void onTestStart(ITestResult result) {

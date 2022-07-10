@@ -3,11 +3,11 @@
 <suite name="Suite">
 
 <listeners>
-<listener class-name="com.listner.MyListner"/>
+<listener class-name="com.Listner.MyListner"/>
 </listeners>
   <test  name="Test">
     <classes>
-      <class name="com.Test.LoginTest"/>
+      <class name="com.test.LoginTest"/>
     </classes>
   </test> 
 </suite> 

@@ -14,48 +14,46 @@ import com.utility.PropertiesUtils;
 
 public class BaseClass {
 
-	public static WebDriver driver=null;
-public static Logger log=Logger.getLogger(BaseClass.class);
+	public static WebDriver driver = null;
+	public static Logger log = Logger.getLogger(BaseClass.class);
 
-public static ExtentReports report=null;
-public static ExtentTest test=null;
-public static ExtentSparkReporter spark=null;
+	public static ExtentReports report = null;
+	public static ExtentTest test = null;
+	public static ExtentSparkReporter spark = null;
 
+	public static void initilization() throws Exception {
 
+		System.out.println("reading  a browser from config file ");
+		log.info("reading  a browser from config file ");
+		String browser = PropertiesUtils.readProperty("browser");
+		log.info("browser name found in config file as : " + browser);
 
-public static void initilization() throws Exception{
-	
-	System.out.println("reading  a browser from config file ");
-	log.info("reading  a browser from config file ");
-	String browser=PropertiesUtils.readProperty("browser"); 
-	log.info("browser name found in config file as : "+browser);
-	
-	
-	if(browser.equals("chrome")){
-		
-		System.setProperty("webdriver.chrome.driver", "E://Selenium Softwares//Selenium Jar//chromedriver101.exe");
-		 
-		driver=new ChromeDriver();
-		
+		if (browser.equals("chrome")) {
+
+			System.setProperty("webdriver.chrome.driver", "D://chromedriver102.exe");
+
+			driver = new ChromeDriver();
+
+		}
+		if (browser.equals("firefox")) {
+
+			System.setProperty("webdriver.gecko.driver", "D:/geckodriver.exe");
+
+			driver = new FirefoxDriver();
+		}
+		driver.manage().window().maximize();
+		driver.get(PropertiesUtils.readProperty("url"));
+		driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
 	}
-	if(browser.equals("firefox")){
-		
-		System.setProperty("webdriver.firefox.driver", "E:/Selenium Softwares/Selenium Jar/geckodriver.exe");
-		
-		driver=new FirefoxDriver();
-	}
-	driver.manage().window().maximize();
-	driver.get(PropertiesUtils.readProperty("url"));
-	driver.manage().timeouts().pageLoadTimeout(30, TimeUnit.SECONDS);
-	driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	
-}
-public static void reportInit(){
-	
-	report=new ExtentReports();
-	spark= new ExtentSparkReporter(System.getProperty("user.dir")+"/targe/ExtentReport.html");
-report.attachReporter(spark);
 
-}
+	public static void reportInit() {
+
+		report = new ExtentReports();
+		spark = new ExtentSparkReporter(System.getProperty("user.dir") + "/targe/ExtentReport.html");
+		report.attachReporter(spark);
+
+	}
 
 }

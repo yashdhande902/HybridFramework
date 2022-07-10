@@ -1,7 +1,6 @@
 package com.Test;
 
 import org.testng.annotations.Test;
-import org.testng.annotations.BeforeMethod;
 import org.testng.AssertJUnit;
 import org.testng.SkipException;
 import org.testng.Assert;
@@ -13,7 +12,7 @@ import com.Base.BaseClass;
 import com.Pages.LoginPage;
 import com.utility.PropertiesUtils;
 
-
+@Listeners(com.listner.MyListner.class)
 public class LoginTest extends BaseClass{  
 	public LoginPage lp=null;
 	
@@ -36,8 +35,7 @@ public class LoginTest extends BaseClass{
 	}
 	@Test(priority=2)
 	public void failTest(){
-		
-		Assert.assertEquals(driver.getTitle(), "test");
+				Assert.assertEquals(driver.getTitle(), "test");
 	}
 	@Test(priority=3)
 	public void skipTest(){
